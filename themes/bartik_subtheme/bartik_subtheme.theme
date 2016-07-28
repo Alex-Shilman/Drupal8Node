@@ -1,0 +1,11 @@
+<?php
+
+function bartik_subtheme_preprocess_page(&$variables) {
+
+  if (isset($variables['node'])) {
+    $type = $variables['node']->getType();
+    if($type == 'page') {
+      $variables['#attached']['library'][] = 'bartik_subtheme/node-app';
+    }
+  }
+}
