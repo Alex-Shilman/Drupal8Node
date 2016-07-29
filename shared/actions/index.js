@@ -10,15 +10,14 @@ import {
 export function signinUser(trigger, params, location) {
 	return function(dispatch) {
 
-		const url = `/sltrigger/${trigger}`;
-
-		axios.get('/employee_info', {
+		axios.get('/ldap', {
 				params
 			})
 			.then((response) => {
 
 				dispatch({
-					type: AUTH_USER
+					type: AUTH_USER,
+					payload: response
 				});
 				dispatch({
 					type: STORE_LDAP,

@@ -30,6 +30,8 @@ class Signin extends Component {
 
 	render() {
 		const {
+			data,
+			authenticated,
 			handleSubmit,
 			submitting,
 			fields: {
@@ -56,16 +58,26 @@ class Signin extends Component {
 						Sign in
 					</button>
 				</form>
-				{(this.state.isLoading) ? <div>Loading...</div> : null}
+				{(this.state.isLoading && !authenticated) ? <div>Loading...</div> : null}
+				{(authenticated) ? JSON.stringify(data) : null}
 			</div>
 
 		)
 	}
 }
 
+const mapStateToProps = (state) => {
+	return {
+		data: state.ldap.data,
+		authenticated: state.ldap.authenticated
+	}
+}
+
 module.exports = reduxForm({
-	form: 'signin',
-	fields: ['utln', 'password']
-}, null, {
-	signinUser: signinUser
-})(Signin);
+		form: 'signin',
+		fields: ['utln', 'password']
+	},
+
+	mapStateToProps, {
+		signinUser: signinUser
+	})(Signin);

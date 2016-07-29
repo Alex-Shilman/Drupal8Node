@@ -11,7 +11,9 @@ const LdapReducer = (state = {
 		case AUTH_USER:
 			debugger;
 			return {...state,
-				authenticated: true
+				authenticated: true,
+				data: action.payload
+
 			}
 
 		case UNAUTH_USER:
