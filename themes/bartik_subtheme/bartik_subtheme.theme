@@ -1,6 +1,28 @@
 <?php
 
+use \Firebase\JWT\JWT;
+
+
 function bartik_subtheme_preprocess_page(&$variables) {
+	$key = "jwt_secret_key_xxx";
+	$token = array(
+		"message" => "hello there",
+	    "iss" => "http://my_Drupal.org",
+	    "aud" => "http://my_node_js.com",
+	    "iat" => 1356999524,
+	    "nbf" => 1357000000
+	);
+
+	/**
+	 * IMPORTANT:
+	 * You must specify supported algorithms for your application. See
+	 * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
+	 * for a list of spec-compliant algorithms.
+	 */
+	$jwt = JWT::encode($token, $key);
+	//$decoded = JWT::decode($jwt, $key, array('HS256'));
+
+	print_r($decoded);
 
   if (isset($variables['node'])) {
     $type = $variables['node']->getType();
@@ -11,6 +33,6 @@ function bartik_subtheme_preprocess_page(&$variables) {
     }
   }
 
-  $value = 'something from somewhere JWT';
-  setcookie("TestCookie", $value);
+  //$value = 'something from somewhere JWT';
+  setcookie("JWT_Token", $jwt);
 }

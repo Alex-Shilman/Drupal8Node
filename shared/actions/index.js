@@ -9,9 +9,13 @@ import {
 
 export function signinUser(trigger, params, location) {
 	return function(dispatch) {
-
-		axios.get('http://localhost:3000/ldap', {
-				params
+		const sKey = 'JWT_Token';
+		const jwt_token = document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + sKey.replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1") || null;
+		axios.get('http://localhost:3000/ldap?', {
+				params,
+				headers: {
+					'x-access-token': jwt_token
+				}
 			})
 			.then((response) => {
 

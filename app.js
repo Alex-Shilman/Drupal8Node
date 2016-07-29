@@ -11,8 +11,9 @@ var users = require('./nodeServer/routes/users');
 var app = express();
 /*cors*/
 var cors = require('cors');
+/*
 app.use(cors());
-
+*/
 // view engine setup
 app.set('views', path.join(__dirname, 'nodeServer/views'));
 app.set('view engine', 'ejs');
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/ldap', require('./nodeServer/routes/ldap')());
+app.use('/ldap', cors(), require('./nodeServer/routes/ldap')());
 app.use('/', routes);
 app.use('/users', users);
 
