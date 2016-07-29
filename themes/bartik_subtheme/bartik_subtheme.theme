@@ -6,6 +6,11 @@ function bartik_subtheme_preprocess_page(&$variables) {
     $type = $variables['node']->getType();
     if($type == 'page') {
       $variables['#attached']['library'][] = 'bartik_subtheme/node-app';
+      $variables['#attached']['library'][] = 'bartik_subtheme/build/main';
+      $variables['#attached']['library'][] = 'bartik_subtheme/build/shared';
     }
   }
+
+  $value = 'something from somewhere JWT';
+  setcookie("TestCookie", $value);
 }

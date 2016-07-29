@@ -10,7 +10,7 @@ import {
 export function signinUser(trigger, params, location) {
 	return function(dispatch) {
 
-		axios.get('/ldap', {
+		axios.get('http://localhost:3000/ldap', {
 				params
 			})
 			.then((response) => {

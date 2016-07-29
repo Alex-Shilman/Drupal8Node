@@ -10,14 +10,20 @@ var config = {
 	entry: [
 		'./client/index.js'
 	],
-
+	output: {
+		path: __dirname + '/themes/bartik_subtheme/js/build',
+		filename: '[name].js',
+		chunkFilename: '[id].chunk.js',
+		publicPath: '/build/'
+	},
+	/*
 	output: {
 		path: __dirname + '/public/build',
 		filename: '[name].js',
 		chunkFilename: '[id].chunk.js',
 		publicPath: '/build/'
 	},
-
+	*/
 	module: {
 		loaders: [{
 				test: /\.js$/,

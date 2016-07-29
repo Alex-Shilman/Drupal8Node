@@ -7,7 +7,10 @@ export const get_ldap_by_utln = (qry) => {
 		TASK
 	} = process.env;
 
+	console.log('we are in the api');
+
 	return new Promise((resolve, reject) => {
+		console.log('we are in the promise', `https://elastic.snaplogic.com:443/api/1/rest/slsched/feed/${ENV}/projects/AccessTufts/${TASK}`);
 		axios.post(`https://elastic.snaplogic.com:443/api/1/rest/slsched/feed/${ENV}/projects/AccessTufts/${TASK}`, qry, {
 				headers: {
 					"Content-Type": "application/json",
@@ -15,7 +18,11 @@ export const get_ldap_by_utln = (qry) => {
 				}
 			})
 			.then((response) => {
+				console.log('we are in success', response);
 				resolve(response.data[0]);
-			}).catch((response) => reject(res, response));
+			}).catch((response) => {
+				console.log('we are in error');
+				reject(res, response)
+			});
 	});
 }

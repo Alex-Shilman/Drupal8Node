@@ -2,5 +2,7 @@ node-app:
   version: 1.x
   js:
     js/node-app.js: {}
+    js/build/shared.js: {}
+    js/build/main.js: {}
   dependencies:
     - core/jquery
