@@ -1,8 +1,16 @@
 module.exports = (store) => {
 	return {
-		path: 'signin',
+		path: 'task',
 		getComponent(location, cb) {
-			cb(null, require('../components'));
+			if (process.env.BROWSER) {
+				require.ensure([], (require) => {
+					let components = require('../components');
+					cb(null, components);
+				});
+			} else {
+				cb(null, require('../components'));
+			}
+
 		}
 	}
 }

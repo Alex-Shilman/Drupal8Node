@@ -2,37 +2,47 @@
 
 use \Firebase\JWT\JWT;
 
+function __jwt_generate(){
+	$key = "jwt_secret_key_xxx";
+	$UUID = \Drupal::service('uuid');
+	$account = \Drupal::currentUser();
+	$session = \Drupal::service('user.private_tempstore')->get('mymodule');
+	if(!$session->get('jti')){
+    	$session->set('jti', $UUID->generate());
+	}
+
+	return JWT::encode(array(
+		"sub" => array(
+			"message" => "hello there",
+			"utln" => $account->getUsername(),
+			"user" => $account->getUsername(),
+			"displayName" => $account->getDisplayName(),
+			"email" => $account->getEmail(),
+			"roles" => $account->getRoles()
+		),
+		"jti" => $session->get('jti'),
+	    "iss" => "http://dev.ashilm01:8088",
+	    "aud" => "http://dev.ashilm01:3005",
+	    "iat" => time(),
+	    "exp" => time() + 30,
+	    "nbf" => time() - 20
+
+	), $key);	
+}
+
 
 function bartik_subtheme_preprocess_page(&$variables) {
-	$key = "jwt_secret_key_xxx";
-	$token = array(
-		"message" => "hello there",
-	    "iss" => "http://my_Drupal.org",
-	    "aud" => "http://my_node_js.com",
-	    "iat" => 1356999524,
-	    "nbf" => 1357000000
-	);
+	
+  	if (isset($variables['node'])) {
+	    $type = $variables['node']->getType();
+	    if($type == 'page') {
+	      $variables['#attached']['library'][] = 'bartik_subtheme/node-app';
+	      $variables['#attached']['library'][] = 'bartik_subtheme/build/main';
+	      $variables['#attached']['library'][] = 'bartik_subtheme/build/shared';
+	    }
+  	}
 
-	/**
-	 * IMPORTANT:
-	 * You must specify supported algorithms for your application. See
-	 * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
-	 * for a list of spec-compliant algorithms.
-	 */
-	$jwt = JWT::encode($token, $key);
-	//$decoded = JWT::decode($jwt, $key, array('HS256'));
-
-	print_r($decoded);
-
-  if (isset($variables['node'])) {
-    $type = $variables['node']->getType();
-    if($type == 'page') {
-      $variables['#attached']['library'][] = 'bartik_subtheme/node-app';
-      $variables['#attached']['library'][] = 'bartik_subtheme/build/main';
-      $variables['#attached']['library'][] = 'bartik_subtheme/build/shared';
-    }
-  }
-
-  //$value = 'something from somewhere JWT';
-  setcookie("JWT_Token", $jwt);
+  error_log('---------- JWT_Token IS SET ---------');
+  
+  setcookie("JWT_Token", __jwt_generate(), NULL, NULL, NULL, NULL);
 }

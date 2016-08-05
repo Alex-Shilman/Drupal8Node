@@ -1,0 +1,6 @@
+my_jwt:
+  path: 'my_jwt/verify'
+  defaults:
+    _controller: 'Drupal\my_jwt\Controller\MyJwtController::verify'
+  requirements:
+    _user_is_logged_in: 'TRUE'

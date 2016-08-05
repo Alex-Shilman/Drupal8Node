@@ -80,6 +80,7 @@ class ComposerStaticInitDrupal8
         ),
         'F' => 
         array (
+            'Fubhy\\GraphQL\\' => 14,
             'Firebase\\JWT\\' => 13,
         ),
         'D' => 
@@ -254,6 +255,10 @@ class ComposerStaticInitDrupal8
         'Goutte\\' => 
         array (
             0 => __DIR__ . '/..' . '/fabpot/goutte/Goutte',
+        ),
+        'Fubhy\\GraphQL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fubhy/graphql-php/src',
         ),
         'Firebase\\JWT\\' => 
         array (

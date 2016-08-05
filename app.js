@@ -4,35 +4,43 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
 var routes = require('./nodeServer/routes/index');
 var users = require('./nodeServer/routes/users');
 
 var app = express();
 /*cors*/
 var cors = require('cors');
-/*
-app.use(cors());
-*/
+const corsOptions = {
+  origin: 'http://dev.ashilm01:8088',
+  credentials: true
+}
+
+
+// enables trust for x-forwared-for  
+app.enable('trust proxy');
 // view engine setup
 app.set('views', path.join(__dirname, 'nodeServer/views'));
 app.set('view engine', 'ejs');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'some_secret',
+  path: '/',
+  saveUninitialized: true,
+  resave: false
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/ldap', cors(), require('./nodeServer/routes/ldap')());
 app.use('/', routes);
-app.use('/users', users);
-
-// catch 404 and forward to error handler
+app.use('/ldap', cors(corsOptions), require('./nodeServer/routes/ldap')());
+app.use('/users', cors(corsOptions), require('./nodeServer/routes/users')());
+app.use('/snow', cors(corsOptions), require('./nodeServer/routes/snow')())
+  // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

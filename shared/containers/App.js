@@ -2,18 +2,19 @@ import React, {
 	Component
 } from 'react';
 
-class App extends Component {
+(process.env.BROWSER) && require('./App.css');
+
+export default class App extends Component {
+
 
 	render() {
 		const {
 			children
 		} = this.props;
 		return (
-			<div className="my-app">
+			<div className="at-App">
 				{ children }
 			</div>
 		);
 	}
 }
-
-export default App

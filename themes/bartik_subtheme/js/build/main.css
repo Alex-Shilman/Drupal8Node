@@ -1,4 +1,11 @@
-.at-Signin form{
-	width: 500px;
+.at-App{
+	border: 1px solid red;
+}.at-Nav{
+	border:1px solid yellow;
+}.at-Home{
+	border: 1px solid black;
+	min-height: 200px;
+}.at-Dashboard p{
+	padding:10px;
 }
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/

@@ -1,0 +1,10 @@
+.at-Task {
+	//border:5px solid yellow;
+}
+.at-Task form{
+	width: 500px;
+}
+
+.at-Task fieldset{
+	border:0;
+}

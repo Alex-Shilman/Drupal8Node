@@ -14,7 +14,7 @@ var config = {
 		path: __dirname + '/themes/bartik_subtheme/js/build',
 		filename: '[name].js',
 		chunkFilename: '[id].chunk.js',
-		publicPath: '/build/'
+		publicPath: '/themes/bartik_subtheme/js/build/'
 	},
 	/*
 	output: {
@@ -31,6 +31,7 @@ var config = {
 				exclude: [/node_modules/, /public/],
 				query: {
 					presets: ['react', 'es2015', 'stage-0']
+
 				}
 			},
 
@@ -80,9 +81,6 @@ var config = {
 		}),
 		new webpack.optimize.CommonsChunkPlugin('shared.js'),
 		new ExtractTextPlugin('[name].css')
-		/*,
-		new webpack.optimize.UglifyJsPlugin()
-		*/
 	],
 
 	postcss: function() {

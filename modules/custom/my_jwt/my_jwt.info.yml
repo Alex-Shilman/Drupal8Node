@@ -1,0 +1,5 @@
+name: My JWT Drupal 8 module
+description: 'Demo jwt module for Drupal 8 alpha11'
+type: module
+package: Web services
+core: 8.x
